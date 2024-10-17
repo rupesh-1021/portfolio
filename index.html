@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rupesh Sai Teja Pitta's Portfolio - Frontend Web Developer specializing in Web Development.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" >
     <title>My Portfolio</title>
     <style>
@@ -19,6 +20,9 @@
     --light-color: #ecf0f1;
 }
 
+html{
+    scroll-behavior: smooth;
+}
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
@@ -399,13 +403,19 @@ body {
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    transition: background 0.3s ease, transform 0.5s ease;
 
+}
+
+.contact-form:hover{
+    transform:translateY(-10px);
 }
 
 .contact-form input,
 .contact-form textarea {
     width: 360px;
     padding: 15px;
+    max-width: 370px;
     margin-bottom: 20px;
     border-radius: 10px;
     border: 2px solid black;
@@ -571,7 +581,7 @@ body {
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact" >Contact</a></li>
             </ul>
             <div class="burger">
                 <div class="line1"></div>
@@ -588,12 +598,12 @@ body {
                     <h1>Welcome to My Portfolio</h1>
                 <p style="font-size: 60px;">I'm Rupesh Sai Teja Pitta</p>
                 <p class="typing-text"></p><br>
-                <a href="Rupesh_Resume.pdf" download class="btn" target="_blank">Download My Resume..!</a>
+                <a href="E:\Rupesh_Resume.docx" download class="btn" target="_blank">Download My Resume..!</a>
                 </div>
             </div>
             <div class="home-card">
                 <div class="img">
-                    <img src="pic.jpg" alt="profilepic">
+                    <img src="E:\pic.jpg" alt="profilepic">
                 </div>
             </div>
         </div>
@@ -635,7 +645,7 @@ body {
                     <p><b>Technologies Used:</b> HTML, CSS, Javascript, Python</p>
                     <a href="https://github.com/rupesh-1021/Rupesh-codes" class="git" target="_blank"> Follow through the link for code details</a><br><br>
                     <p><b>Description:</b> Designed and Developed a website for Phishing Detection using Frontend development and machine-learning algorithms, to detect the phishing URLs, IP address and Domain names.</p>
-                    <a href="Rupesh conference certificate.pdf" download class="download-link" target="_blank">Download Conference Certificate</a>
+                    <a href="E:\Rupesh conference certificate.pdf" download class="download-link" target="_blank">Download Conference Certificate</a>
                 </div>
             </div>
             <div class="project-card">
@@ -646,7 +656,7 @@ body {
                     <p><b>Internship Period:</b>15/05/2023 - 31/07/2023</p>
                     <p><b>Technologies Used:</b> Salesforce fundamentals, Relationship & Process Automation, Lightning Web Components(LWC) & API</p><br>
                     <p><b>Description:</b> During my 8 weeks of internship, I had done many modules regarding the Customer Relationship Management(CRM) and understood by completing the tasks on Flow Controls & Security Uing Lightning Web Components.</p>
-                    <a href="Salesforce internship .pdf" download class="download-link" target="_blank">Download the Certificate</a>
+                    <a href="E:\Salesforce internship .pdf" download class="download-link" target="_blank">Download the Certificate</a>
                 </div>
             </div>
         </div>
@@ -681,12 +691,8 @@ body {
 
 
 <script>
-const burger = document.querySelector('.burger');
-const navLinks = document.querySelector('.nav-links');
-
-burger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    burger.classList.toggle('toggle');
+document.querySelector('.burger').addEventListener('click', () => {
+    document.querySelector('.nav-links').classList.toggle('active');
 });
 window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
@@ -703,41 +709,16 @@ window.addEventListener('load', () => {
     content.classList.add('animate');
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const textArray = ["I'm a Cybersecurity Graduate", "I'm a Frontend Developer"];
-    let typingDelay = 150;
-    let erasingDelay = 80;
-    let newTextDelay = 10;
-    let textArrayIndex = 0;
-    let charIndex = 0;
-
-    const typingTextElement = document.querySelector(".typing-text");
-
-    function type() {
-        if (charIndex < textArray[textArrayIndex].length) {
-            typingTextElement.textContent += textArray[textArrayIndex].charAt(charIndex);
-            charIndex++;
-            setTimeout(type, typingDelay);
-        } else {
-            setTimeout(erase, newTextDelay);
+const text = "A Frontend Web Developer";
+    let index = 0;
+    const typingEffect = () => {
+        if (index < text.length) {
+            document.querySelector('.typing-text').textContent += text.charAt(index);
+            index++;
+            setTimeout(typingEffect, 150);
         }
-    }
-
-    function erase() {
-        if (charIndex > 0) {
-            typingTextElement.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
-            charIndex--;
-            setTimeout(erase, erasingDelay);
-        } else {
-            textArrayIndex++;
-            if(textArrayIndex >= textArray.length) textArrayIndex = 0;
-            setTimeout(type, typingDelay + 100);
-        }
-    }
-
-
-    type();
-});
+    };
+    window.onload = typingEffect;
 
     </script>
 </body>
