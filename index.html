@@ -288,7 +288,7 @@ body {
     overflow: hidden;
 }
 
-.project-card .pro a.git{
+.project-card .int a.git{
     display: inline-block;
     font-size: 1rem;
     color: black;
@@ -460,6 +460,46 @@ body {
     text-align: center;
 }
 
+#prevRes{
+    display: none;
+    width: 1200px;
+    height: 700px;
+    border: 3px solid #333;
+    justify-content: center;
+    overflow: hidden;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgb(51 51 51);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    animation: slideIn 1s ease-in-out forwards;
+    transform: translate(-50%, -75%);
+    padding: 20px;
+    background-color: #fff;
+}
+
+#prevRes.active{
+    display: flex;
+}
+
+#closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+#closeBtn:hover {
+    background: #e60000;
+}
 
 @keyframes fadeInDown {
     from {
@@ -470,6 +510,11 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes slideIn {
+    0% { opacity: 0; transform: translate(-50%, -100%) translateY(-100vh); }
+    100% { opacity: 1; transform: translate(-50%, -40%) translateY(0); }
 }
 
 
@@ -573,6 +618,64 @@ body {
     }
 }
 
+/*media queries for preview resume*/
+/* Tablets and small laptops */
+@media (max-width: 992px) {
+    #prevRes {
+        width: 500px;
+        height: 600px;
+        padding: 5px 15px;  /* reduced top/bottom padding */
+        flex-direction: column;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+    }
+    #prevRes img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        margin: 2px 0;  /* smaller gap between images */
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 768px) {
+    #prevRes {
+        width: 350px;
+        height: 500px;
+        padding: 5px 10px; /* reduced top/bottom padding */
+        border-radius: 10px;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+    }
+    #prevRes img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        margin: 2px 0;  /* smaller gap */
+    }
+    #closeBtn {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+}
+
+/* Small phones (under 480px) */
+@media (max-width: 480px) {
+    #prevRes {
+        width: 300px;
+        height: 450px;
+        padding: 3px 8px;  /* minimal padding */
+        overflow-y: auto;
+    }
+    #prevRes img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        margin: 2px 0;  /* minimal gap */
+    }
+}
+
 </style>
 </head>
 <body>
@@ -581,7 +684,7 @@ body {
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#projects">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact" >Contact</a></li>
             </ul>
             <div class="burger">
@@ -600,11 +703,12 @@ body {
                 <p style="font-size: 60px;">I'm Rupesh Sai Teja Pitta</p>
                 <p class="typing-text"></p><br>
                 <a href="Resume.pdf" download class="btn" target="_blank">Download My Resume..!</a>
+                <a onclick="openForm()"  title="Click to preview the Resume" class="btn">preview the Resume..!</a>
                 </div>
             </div>
             <div class="home-card">
                 <div class="img">
-                    <img src="pic.jpg" alt="profilepic">
+                    <img src="portfolio pic.jpg" alt="profilepic">
                 </div>
             </div>
         </div>
@@ -635,28 +739,28 @@ body {
     </section>
 
     <section id="projects" class="section projects">
-        <h2>Experience & Project</h2><br><br>
+        <h2>Projects & Internships</h2><br><br>
         <div class="project-container">
-            <div class="project-card">
+           <div class="project-card">
                 <h3>Experience</h3><br>
                 <div class="pro">
                     <p><b>Company:</b> Valuemomentum Software Services Private Limited</p>
                     <p><b>Location:</b> Hyderabad, Telangana</p>
-                    <p><b>Title of the Project:</b> Intelligent Test Accelerator Platform (iTAP)</p>
-                    <p><b>Role:</b> Software Development Engineer</p>
+                    <p><b>Title of the Project:</b> Intelligent Test Accelerator Platform (iTAP)</p><br>
+                    <p><b>Role:</b> Software Development Engineer (SDE-1)</p>
                     <p><b>Experience:</b>23/12/2024 - Present (~1Year)</p>
-                    <p><b>Technologies Used:</b> Angular, Python</p>
+                    <p><b>Languages Used:</b> Angular, Python</p><br>
                     <p><b>Description:</b> iTAP is an AI powered, Codeless Accelerator platform for Automation Accelerators which are used for multiple automation tasks.</p>
                 </div>
             </div>
             <div class="project-card">
                 <h3>Project</h3><br>
-                <div class="int">
+                <div class="int">       
                     <p><b>Title of the Project:</b> Unmasking Deception Strategies for attack Detection</p>
                     <p><b>Role:</b> Team Lead & Fullstack Developer</p>
                     <p><b>Experience:</b>14/07/2023 - 18/04/2024 (<1Year)</p>
-                    <p><b>Technologies Used:</b> HTML, CSS, Javascript, Python</p>
-                    <a href="https://github.com/rupesh-1021/Rupesh-codes" class="git" target="_blank"> Follow through the link for code details</a><br><br>
+                    <p><b>Languages Used:</b> HTML, CSS, Javascript, Python, AI Machine Learning Algorithms</p>
+                    <a href="https://github.com/rupesh-1021/phishing_detector" class="git" target="_blank"> Follow through the link for code details</a><br><br>
                     <p><b>Description:</b> Designed and Developed a website for Phishing Detection using Frontend development and machine-learning algorithms, to detect the phishing URLs, IP address and Domain names.</p>
                     <a href="Rupesh conference certificate.pdf" download class="download-link" target="_blank">Download Conference Certificate</a>
                 </div>
@@ -672,7 +776,7 @@ body {
                     <li><p><i class="fa-solid fa-phone"></i> +91 9676195493</p></li>
                     <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=rupeshsaiteja9841@gmail.com&su=Inquiry&body=Hello, I would like to know more about your profile." target="_blank"><i class="fa-solid fa-envelope"></i> Gmail</a></li>
                     <li><a href="https://github.com/rupesh-1021" target="_blank"><i class="fa-brands fa-github"></i> Github</a></li>
-                    <li><a href="www.linkedin.com/in/rupesh-sai-teja-pitta-304632331" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
+                    <li><a href="https://www.linkedin.com/in/rupesh-sai-teja-pitta-304632331" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
                     <li><a href="https://www.instagram.com/thenameisrupesh21/?next=%2F" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
                 </ul>
             </div>
@@ -687,42 +791,57 @@ body {
         </div>
         <div class="footer">
             <p>&copy; August 2024 | Rupesh Sai Teja Pitta | All rights reserved.</p>
+            <p>Last Updated on <b>22/10/2025</b></p>
         </div>
 
     </section>
+    <div id="prevRes" class="prev-res">
+        <button id="closeBtn" onclick="closeForm()">×</button>
+        <img src="Resume page 1.jpg" alt="Resume Page 1" width="700" height="800">
+        <img src="Resume page 2.jpg" alt="Resume Page 2" width="700" height="800">
+
+    </div>
 
 
-<script>
-document.querySelector('.burger').addEventListener('click', () => {
-    document.querySelector('.nav-links').classList.toggle('active');
-});
-window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-});
+    <script>
+        document.querySelector('.burger').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
 
 
-window.addEventListener('load', () => {
-    const content = document.querySelector('.home .content');
-    content.classList.add('animate');
-});
+        window.addEventListener('load', () => {
+            const content = document.querySelector('.home .content');
+            content.classList.add('animate');
+        });
 
-const text = "Software Development Engineer for iTAP";
-    let index = 0;
-    const typingEffect = () => {
-        if (index < text.length) {
-            document.querySelector('.typing-text').textContent += text.charAt(index);
-            index++;
-            setTimeout(typingEffect, 150);
+        const text = "Software Development Engineer for iTAP";
+            let index = 0;
+            const typingEffect = () => {
+                if (index < text.length) {
+                    document.querySelector('.typing-text').textContent += text.charAt(index);
+                    index++;
+                    setTimeout(typingEffect, 50);
+                }
+            };
+            window.onload = typingEffect;
+        
+        function openForm() {
+        var prevRes = document.querySelector(".prev-res");
+        prevRes.classList.toggle("active");
         }
-    };
-    window.onload = typingEffect;
+        function closeForm() {
+        var prevRes = document.getElementById("prevRes");
+        prevRes.classList.remove("active");
+        }
 
     </script>
 </body>
 </html>
-
