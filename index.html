@@ -33,6 +33,8 @@ body {
 .burger {
     display: none;
     cursor: pointer;
+    position: absolute;
+    left: 20px;
 }
 
 .burger div {
@@ -462,27 +464,51 @@ body {
 
 #prevRes{
     display: none;
-    width: 1200px;
-    height: 700px;
-    border: 3px solid #333;
-    justify-content: center;
-    overflow: hidden;
-    align-items: center;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgb(51 51 51);
     position: fixed;
     top: 50%;
     left: 50%;
-    animation: slideIn 1s ease-in-out forwards;
-    transform: translate(-50%, -75%);
-    padding: 20px;
+    transform: translate(-50%, -50%);
+    width: min(1100px, 96vw);      /* responsive max width */
+    max-width: 1100px;
+    max-height: 90vh;              /* constrain to viewport height */
+    border: 3px solid #333;
     background-color: #fff;
+    padding: 18px;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.35);
+    gap: 16px;
+    z-index: 2000;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
 }
 
+/* images inside should always be fluid and block-level */
+#prevRes img {
+    width: 48%;
+    max-width: 520px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* active state */
 #prevRes.active{
     display: flex;
 }
 
+/* make container scroll when content taller than allowed */
+#prevRes .pages {
+    width: 100%;
+    max-height: calc(90vh - 60px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 #closeBtn {
     position: absolute;
     top: 10px;
@@ -524,15 +550,24 @@ body {
         flex-direction: column;
         width: 100%;
         position: absolute;
-        top: 60px;
+        top: 30px;
         left: 0;
         background: var(--primary-color);
+        padding: 0;
     }
 
     .nav-links.active {
         display: flex;
     }
+    .nav-links a:hover {
+        background-color: transparent;
+    }
 
+    .nav-links a {
+        color: white;
+        padding: 15px 20px;
+        text-align: left;
+    }
     .burger {
         display: block;
     }
@@ -557,29 +592,44 @@ body {
 }
 
 @media (max-width: 768px) {
-    .home-container {
+    .home-card .hom {
+        display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
+        align-items: center;
     }
 
-    .home-card {
-        max-width: 100%;
-        max-height: none;
-        position: relative;
-    }
-
-    .home-card img {
-        width: 80%;
-        height: auto;
-        margin-top: 20px;
+    .home-card .hom .btn {
+        width: 100%;
+        max-width: 300px;
+        padding: 12px 20px;
+        font-size: 0.9rem;
     }
 
     .home-card .hom h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 10px;
     }
 
     .home-card .hom p {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin: 10px 0;
+    }
+
+    .typing-text {
+        font-size: 18px;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
+    .home-card img {
+        max-width: 300px;
+        margin-top: 40px;
+        max-height: 300px;
+    }
+
+    .home-container {
+        gap: 30px;
     }
 }
 
@@ -622,57 +672,39 @@ body {
 /* Tablets and small laptops */
 @media (max-width: 992px) {
     #prevRes {
-        width: 500px;
-        height: 600px;
-        padding: 5px 15px;  /* reduced top/bottom padding */
-        flex-direction: column;
-        overflow-y: auto;
-        scroll-behavior: smooth;
+        width: min(700px, 94vw);
+        padding: 12px;
+        gap: 12px;
     }
     #prevRes img {
         width: 100%;
-        height: auto;
-        object-fit: contain;
-        margin: 2px 0;  /* smaller gap between images */
+        max-width: none;
+        margin: 6px 0;
+    }
+    #prevRes .pages {
+        flex-direction: column; /* stack */
     }
 }
 
-/* Mobile phones */
+/* Mobile phones and small tablets */
 @media (max-width: 768px) {
     #prevRes {
-        width: 350px;
-        height: 500px;
-        padding: 5px 10px; /* reduced top/bottom padding */
+        width: calc(100vw - 24px);
+        padding: 10px;
         border-radius: 10px;
-        overflow-y: auto;
-        scroll-behavior: smooth;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
     }
     #prevRes img {
         width: 100%;
+        margin: 6px 0;
         height: auto;
-        object-fit: contain;
-        margin: 2px 0;  /* smaller gap */
     }
     #closeBtn {
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
         font-size: 16px;
-    }
-}
-
-/* Small phones (under 480px) */
-@media (max-width: 480px) {
-    #prevRes {
-        width: 300px;
-        height: 450px;
-        padding: 3px 8px;  /* minimal padding */
-        overflow-y: auto;
-    }
-    #prevRes img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        margin: 2px 0;  /* minimal gap */
     }
 }
 
@@ -791,16 +823,17 @@ body {
         </div>
         <div class="footer">
             <p>&copy; August 2024 | Rupesh Sai Teja Pitta | All rights reserved.</p>
-            <p>Last Updated on <b>22/10/2025</b></p>
+            <p>Last Updated on <b>04/12/2025</b></p>
         </div>
 
     </section>
     <div id="prevRes" class="prev-res">
-        <button id="closeBtn" onclick="closeForm()">×</button>
-        <img src="Resume page 1.jpg" alt="Resume Page 1" width="700" height="800">
-        <img src="Resume page 2.jpg" alt="Resume Page 2" width="700" height="800">
-
+    <button id="closeBtn" onclick="closeForm()">×</button>
+    <div class="pages">
+        <img src="Resume page 1.jpg" alt="Resume Page 1">
+        <img src="Resume page 2.jpg" alt="Resume Page 2">
     </div>
+</div>
 
 
     <script>
@@ -822,7 +855,7 @@ body {
             content.classList.add('animate');
         });
 
-        const text = "Software Development Engineer for iTAP";
+        const text = "Software Development Engineer (SDE)";
             let index = 0;
             const typingEffect = () => {
                 if (index < text.length) {
@@ -834,13 +867,20 @@ body {
             window.onload = typingEffect;
         
         function openForm() {
-        var prevRes = document.querySelector(".prev-res");
-        prevRes.classList.toggle("active");
+            document.getElementById('prevRes').classList.add('active');
         }
+
         function closeForm() {
-        var prevRes = document.getElementById("prevRes");
-        prevRes.classList.remove("active");
+            document.getElementById('prevRes').classList.remove('active');
         }
+
+        // Close when clicking outside the modal
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('prevRes');
+            if (event.target === modal) {
+                closeForm();
+            }
+        });
 
     </script>
 </body>
