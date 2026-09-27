@@ -690,7 +690,7 @@
     <footer class="bg-black py-12 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6 text-center text-zinc-500 text-sm">
             <p>&copy; 2026 Rupesh Sai Teja Pitta. Crafted with passion and precision.</p>
-            <p class="mt-2">Last updated: <time id="last-updated">Pending deployment</time></p>
+            <p class="mt-2">Last updated: <time id="last-updated">Checking file timestamp...</time></p>
         </div>
     </footer>
 
@@ -739,6 +739,23 @@
     <script>
         // Tailwind script already included via CDN
         AOS.init({ once: true, duration: 800 });
+
+        const lastUpdated = document.getElementById('last-updated');
+        const fileModified = new Date(document.lastModified);
+        if (!Number.isNaN(fileModified.getTime())) {
+            lastUpdated.dateTime = fileModified.toISOString();
+            lastUpdated.textContent = new Intl.DateTimeFormat('en-IN', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: '2-digit',
+                timeZone: 'Asia/Kolkata',
+                timeZoneName: 'short'
+            }).format(fileModified);
+        } else {
+            lastUpdated.textContent = 'Timestamp unavailable';
+        }
 
         // Mobile menu
         const mobileMenuButton = document.getElementById('mobile-menu-btn');
