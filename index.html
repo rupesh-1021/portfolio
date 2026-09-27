@@ -23,6 +23,17 @@
             transition-duration: 150ms;
         }
         
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 6rem;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
         body {
             font-family: 'Inter', system-ui, sans-serif;
         }
@@ -132,6 +143,136 @@
             50% { border-color: var(--primary); }
         }
 
+        /* LinkedIn-style role timeline */
+        #experience .experience-timeline {
+            --timeline-axis: 1.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #experience .experience-timeline > li {
+            position: relative;
+            padding-left: 4rem;
+        }
+
+        #experience .experience-timeline > li:not(:last-child) {
+            padding-bottom: 2rem;
+        }
+
+        #experience .experience-timeline > li::before {
+            content: '';
+            position: absolute;
+            top: 0.6rem;
+            left: var(--timeline-axis);
+            transform: translateX(-50%);
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background: #a1a1aa;
+        }
+
+        #experience .experience-timeline > li:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 1.6rem;
+            bottom: -0.1rem;
+            left: var(--timeline-axis);
+            transform: translateX(-50%);
+            width: 0.25rem;
+            background: #71717a;
+        }
+
+        .grid > *, .flex > * {
+            min-width: 0;
+        }
+
+        #home > .grid {
+            width: 100%;
+        }
+
+        #contact h2, #contact a, #modal-title {
+            overflow-wrap: anywhere;
+        }
+
+        #contact a > .w-12 {
+            flex-shrink: 0;
+        }
+
+        .desktop-nav, .desktop-resume {
+            display: none;
+        }
+
+        #mobile-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, .2);
+            border-radius: 14px;
+        }
+
+        #mobile-menu {
+            max-height: calc(100dvh - 84px);
+            overflow-y: auto;
+            background: #18181b;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            padding: 16px 24px 24px;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, .3);
+        }
+
+        #mobile-menu[hidden] { display: none; }
+        #mobile-menu a.nav-link {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 12px;
+        }
+        #mobile-menu a.nav-link.active,
+        #mobile-menu a.nav-link:hover {
+            color: #22d3ee;
+            background: rgba(34, 211, 238, .08);
+        }
+        #mobile-menu .nav-link::after { display: none; }
+
+        @media (min-width: 1280px) {
+            .desktop-nav, .desktop-resume { display: flex; }
+            #mobile-menu-btn, #mobile-menu { display: none; }
+        }
+
+        @media (max-width: 767px) {
+            html { scroll-padding-top: 5rem; }
+            body > nav > div:first-child { padding: 12px 20px; }
+            body > section { padding-top: 64px; padding-bottom: 64px; }
+            #home { padding-top: 0; }
+            #home > .grid { padding-top: 112px; gap: 48px; }
+            #home h1 { font-size: clamp(2.75rem, 12vw, 4.5rem); }
+            #home .text-4xl { font-size: clamp(1.65rem, 7vw, 2.25rem); }
+            #home .text-xl, #contact .text-xl { font-size: 1rem; }
+            #home img { width: min(100%, 320px); }
+            #home .absolute.-bottom-6 {
+                right: 0;
+                padding: 16px 20px;
+            }
+            #home > .absolute.bottom-12 { display: none; }
+            section h2.text-6xl {
+                font-size: clamp(2rem, 8vw, 3rem);
+                line-height: 1.15;
+            }
+            #contact h2 { font-size: clamp(1.75rem, 7.5vw, 2.75rem); }
+            #contact > .grid { gap: 36px; }
+            #contact a { gap: 12px; }
+            #contact .mt-16 { margin-top: 32px; }
+            section .glass.p-10 { padding: 24px; }
+            #contact input, #contact textarea { min-width: 0; }
+            #about .mt-12.flex { flex-wrap: wrap; }
+            #project-modal .p-8, #resume-modal .p-8 { padding: 20px; }
+            #modal-title { font-size: 1.125rem; }
+            #project-modal button, #resume-modal button { flex-shrink: 0; }
+            [data-aos] { transform: none !important; }
+        }
+
         .particle {
             position: absolute;
             border-radius: 50%;
@@ -150,7 +291,7 @@
                 <span class="text-2xl font-semibold heading-font tracking-tighter">Rupesh</span>
             </div>
             
-            <ul class="hidden md:flex items-center gap-10 text-sm font-medium">
+            <ul class="desktop-nav items-center gap-10 text-sm font-medium">
                 <li><a href="#home" onclick="navigateTo('home')" class="nav-link active text-white">Home</a></li>
                 <li><a href="#about" onclick="navigateTo('about')" class="nav-link">About</a></li>
                 <li><a href="#experience" onclick="navigateTo('experience')" class="nav-link">Experience</a></li>
@@ -159,8 +300,8 @@
                 <li><a href="#contact" onclick="navigateTo('contact')" class="nav-link">Contact</a></li>
             </ul>
             
-            <div class="flex items-center gap-4">
-                <a href="Rupesh_FullStack_Resume.pdf" download class="px-6 py-3 bg-white text-black font-semibold rounded-3xl flex items-center gap-2 hover:scale-105 active:scale-95">
+            <div class="desktop-resume items-center gap-4">
+                <a href="assets/Rupesh%20FullStack%20Resume.pdf" download class="px-6 py-3 bg-white text-black font-semibold rounded-3xl flex items-center gap-2 hover:scale-105 active:scale-95">
                     <i class="fa-solid fa-download"></i>
                     <span>Resume</span>
                 </a>
@@ -170,9 +311,23 @@
             </div>
             
             <!-- Mobile Burger -->
-            <button id="mobile-menu-btn" class="md:hidden text-3xl">
-                <i class="fa-solid fa-bars"></i>
+            <button id="mobile-menu-btn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="text-xl hover:bg-white/10">
+                <i class="fa-solid fa-bars" aria-hidden="true"></i>
             </button>
+        </div>
+        <div id="mobile-menu" hidden>
+            <ul class="space-y-1 text-sm font-medium">
+                <li><a href="#home" onclick="navigateTo('home')" class="nav-link active">Home</a></li>
+                <li><a href="#about" onclick="navigateTo('about')" class="nav-link">About</a></li>
+                <li><a href="#experience" onclick="navigateTo('experience')" class="nav-link">Experience</a></li>
+                <li><a href="#projects" onclick="navigateTo('projects')" class="nav-link">Projects</a></li>
+                <li><a href="#skills" onclick="navigateTo('skills')" class="nav-link">Skills</a></li>
+                <li><a href="#contact" onclick="navigateTo('contact')" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="grid gap-3 mt-4 pt-4 border-t border-white/10 text-sm">
+                <a href="assets/Rupesh%20FullStack%20Resume.pdf" download onclick="setMobileMenu(false)" class="px-5 py-3 bg-white text-black font-semibold rounded-2xl text-center"><i class="fa-solid fa-download mr-2" aria-hidden="true"></i>Download Resume</a>
+                <button type="button" onclick="setMobileMenu(false); previewResume()" class="px-5 py-3 border border-white/30 rounded-2xl hover:bg-white/5">Preview Resume</button>
+            </div>
         </div>
     </nav>
 
@@ -201,7 +356,7 @@
                 </p>
                 
                 <div class="flex flex-wrap gap-4">
-                    <a href="#projects" onclick="navigateTo('projects')" 
+                    <a href="#experience" onclick="navigateTo('experience')" 
                        class="px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-3xl font-semibold flex items-center gap-3 hover:shadow-2xl hover:shadow-cyan-500/30">
                         <span>View My Work</span>
                         <i class="fa-solid fa-arrow-right"></i>
@@ -214,9 +369,6 @@
                 </div>
                 
                 <div class="flex gap-8 pt-8">
-                    <a href="https://github.com/rupesh-1021" target="_blank" class="flex items-center gap-2 hover:text-cyan-400">
-                        <i class="fa-brands fa-github text-3xl"></i>
-                    </a>
                     <a href="https://www.linkedin.com/in/rupesh-sai-teja-pitta-304632331" target="_blank" class="flex items-center gap-2 hover:text-cyan-400">
                         <i class="fa-brands fa-linkedin text-3xl"></i>
                     </a>
@@ -263,7 +415,7 @@
                         <div class="mt-12 flex gap-8 text-sm">
                             <div>
                                 <div class="text-cyan-400">Current Role</div>
-                                <div class="font-medium">SDE-2 @ Valuemomentum</div>
+                                <div class="font-medium">SDE-3 @ Valuemomentum</div>
                             </div>
                             <div>
                                 <div class="text-cyan-400">Education</div>
@@ -279,13 +431,13 @@
                             <span class="text-4xl">🎓</span> Education
                         </h3>
                         <div class="space-y-8">
-                            <div class="flex gap-6">
-                                <div class="w-28 text-right shrink-0">
-                                    <div class="font-mono text-xs text-zinc-500">2020 — 2024</div>
-                                </div>
-                                <div class="flex-1">
+                            <div class="flex items-start gap-4">
+                                <img src="https://assets.kollegeapply.com/allCollegeLogo/logo/godavari-institute-of-engineering-and-technology-7010683-logo.png" alt="Godavari Institute of Engineering and Technology (GIET) logo" width="64" height="64" loading="lazy" class="w-16 h-16 shrink-0 object-contain rounded-xl bg-white p-1">
+                                <div class="flex-1 min-w-0">
                                     <div class="font-semibold">Godavari Institute of Engineering and Technology</div>
+                                    <p class="text-sm font-medium text-zinc-300 mt-1">Newly Branded as Godavari Global University (GGU)</p>
                                     <div class="text-cyan-400">B.Tech in Computer Science &amp; Engineering (Cybersecurity)</div>
+                                    <div class="text-sm text-emerald-400 mt-1">2020 — 2024</div>
                                     <div class="text-sm text-zinc-400 mt-1">CGPA: 7.70</div>
                                 </div>
                             </div>
@@ -294,9 +446,21 @@
                     
                     <div class="glass rounded-3xl p-10">
                         <h3 class="text-2xl font-semibold mb-8 flex items-center gap-3">
-                            <span class="text-4xl">🏆</span> Certifications
+                            <span class="text-4xl">🏆</span> Achievements &amp; Certifications
                         </h3>
                         <ul class="grid md:grid-cols-2 gap-6">
+                            <li class="flex items-start gap-4 md:col-span-2">
+                                <i class="fa-solid fa-award mt-1 text-2xl text-amber-400" aria-hidden="true"></i>
+                                <div>
+                                    <div class="font-semibold">Signature of Excellence</div>
+                                    <div class="text-sm text-zinc-400">ValueMomentum &middot; 19 December 2025</div>
+                                    <p class="text-sm text-zinc-300 mt-2">Mark of Excellence award recognizing outstanding contributions, dedication, and exceptional performance.</p>
+                                    <button type="button" onclick="openCertificateModal('assets/award.jpg', 'Signature of Excellence — ValueMomentum')" class="inline-flex items-center gap-2 mt-4 px-6 py-3 border border-white/30 rounded-3xl hover:bg-white/5">
+                                        <i class="fa-regular fa-image" aria-hidden="true"></i>
+                                        View certificate
+                                    </button>
+                                </div>
+                            </li>
                             <li class="flex items-start gap-4">
                                 <i class="fa-solid fa-shield-halved mt-1 text-2xl text-purple-400"></i>
                                 <div>
@@ -334,87 +498,82 @@
             
             <div class="max-w-4xl mx-auto space-y-12">
                 <!-- Experience Card -->
-                <div class="glass rounded-3xl p-10" data-aos="fade-up">
-                    <div class="flex flex-col md:flex-row md:items-start gap-8">
-                        <div class="md:w-52 shrink-0">
-                            <div class="text-emerald-400 font-medium">Dec 2024 — Present</div>
-                            <div class="text-sm text-zinc-500">~2 years</div>
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-3xl">💼</div>
-                                <div>
-                                    <div class="font-semibold text-2xl">Valuemomentum Software Services</div>
-                                    <div class="text-cyan-400">Software Development Engineer (SDE-2) • Coimbatore</div>
-                                </div>
-                            </div>
-                            
-                            <div class="prose prose-invert">
-                                <p class="text-zinc-300">Working on <strong>QuailX Platform</strong> — an AI-powered, codeless automation platform that accelerates testing workflows across multiple domains.</p>
-                                <div class="mt-6 flex flex-wrap gap-2">
-                                    <span class="px-4 py-2 text-xs bg-white/10 rounded-3xl">ReactJs</span>
-                                    <span class="px-4 py-2 text-xs bg-white/10 rounded-3xl">NodeJs</span>
-                                    <span class="px-4 py-2 text-xs bg-white/10 rounded-3xl">Python</span>
-                                    <span class="px-4 py-2 text-xs bg-white/10 rounded-3xl">Azure Open AI</span>
-                                </div>
-                            </div>
+                <div class="glass rounded-3xl p-6 md:p-10" data-aos="fade-up">
+                    <div class="flex items-start gap-4 mb-6">
+                        <img src="https://www.valuemomentum.com/wp-content/uploads/2025/09/cropped-Valuemomentum_favicon-12-192x192.png" alt="ValueMomentum logo" width="48" height="48" class="w-12 h-12 shrink-0 object-contain">
+                        <div class="min-w-0">
+                            <h3 class="font-semibold text-2xl">ValueMomentum</h3>
+                            <p class="text-cyan-400 mt-2">Full-time &middot; 1 yr 10 mos</p>
+                            <p class="text-sm text-zinc-400 mt-1">Coimbatore, Tamil Nadu, India &middot; On-site</p>
                         </div>
                     </div>
+
+                    <ol class="experience-timeline">
+                        <li>
+                            <h4 class="text-lg font-semibold">Software Development Engineer (SDE-3) - A3</h4>
+                            <p class="text-sm text-emerald-400 mt-1">Sep 2026 - Present &middot; 1 mo</p>
+                        </li>
+                        <li>
+                            <h4 class="text-lg font-semibold">Software Development Engineer (SDE-2) - A2</h4>
+                            <p class="text-sm text-emerald-400 mt-1">Dec 2025 - Sep 2026 &middot; 10 mos</p>
+                        </li>
+                        <li>
+                            <h4 class="text-lg font-semibold">Software Development Engineer (SDE-1) - A1</h4>
+                            <p class="text-sm text-emerald-400 mt-1">Dec 2024 - Dec 2025 &middot; 1 yr 1 mo</p>
+                            <p class="text-zinc-300 leading-relaxed mt-4">I'm responsible for developing the Automation Accelerators Platform called <strong>QuailX</strong>, built for Enterprise QE Teams, spanning Insurance Validation, AI generation, Data Quality, and Test Analytics.</p>
+                        </li>
+                    </ol>
                 </div>
-                
-                <!-- Project Lead -->
-                <div class="glass rounded-3xl p-10" data-aos="fade-up" data-aos-delay="150">
-                    <div class="flex flex-col md:flex-row md:items-start gap-8">
-                        <div class="md:w-52 shrink-0">
-                            <div class="text-emerald-400 font-medium">Jul 2023 — Apr 2024</div>
-                            <div class="text-sm text-zinc-500">10 months</div>
+                <!-- University Project -->
+                <div class="glass rounded-3xl p-6 md:p-10" data-aos="fade-up" data-aos-delay="150">
+                    <div class="flex items-start gap-4 mb-6">
+                        <img src="https://ggu.edu.in/wp-content/uploads/2024/06/GGU-FAVICON.png" alt="Godavari Global University logo" width="48" height="48" class="w-12 h-12 shrink-0 object-contain">
+                        <div class="min-w-0">
+                            <h3 class="font-semibold text-2xl">Godavari Global University</h3>
+                            <p class="text-cyan-400 mt-2">Academic Project &middot; 10 months</p>
                         </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 bg-gradient-to-br from-rose-500 to-orange-500 rounded-2xl flex items-center justify-center text-3xl">🔍</div>
-                                <div>
-                                    <div class="font-semibold text-2xl">Unmasking Deception Strategies for Attack Detection</div>
-                                    <div class="text-cyan-400">Team Lead &amp; Full-Stack Developer</div>
-                                </div>
-                            </div>
-                            
-                            <p class="text-zinc-300">Developed a phishing detection platform using Machine Learning and modern web technologies. Presented at conference and published certificate.</p>
-                            
-                            <a href="https://github.com/rupesh-1021/phishing_detector" target="_blank"
-                               class="inline-flex items-center gap-2 mt-8 px-6 py-3 border border-white/30 rounded-3xl hover:bg-white/5">
-                                <i class="fa-brands fa-github"></i>
+                    </div>
+                    <ol class="experience-timeline">
+                        <li>
+                            <h4 class="text-lg font-semibold">Team Lead &amp; Full-Stack Developer</h4>
+                            <p class="text-sm text-emerald-400 mt-1">Jul 2023 - Apr 2024 &middot; 10 months</p>
+                            <p class="text-zinc-200 font-medium mt-4">Unmasking Deception Strategies for Attack Detection</p>
+                            <p class="text-zinc-300 leading-relaxed mt-2">Developed a phishing detection platform using Machine Learning and modern web technologies. Presented at conference and published certificate.</p>
+                            <a href="https://github.com/rupesh-1021/phishing_detector" target="_blank" rel="noopener noreferrer"
+                               class="inline-flex items-center gap-2 mt-6 px-6 py-3 border border-white/30 rounded-3xl hover:bg-white/5">
+                                <i class="fa-brands fa-github" aria-hidden="true"></i>
                                 View on GitHub
                             </a>
-                        </div>
-                    </div>
+                        </li>
+                    </ol>
                 </div>
 
-                <!--Salesforce Intern-->
-                <div class="glass rounded-3xl p-10" data-aos="fade-up" data-aos-delay="150">
-                    <div class="flex flex-col md:flex-row md:items-start gap-8">
-                        <div class="md:w-52 shrink-0">
-                            <div class="text-emerald-400 font-medium">may 2023 — Jul 2023</div>
-                            <div class="text-sm text-zinc-500">3 months</div>
+                <!-- Salesforce Intern -->
+                <div class="glass rounded-3xl p-6 md:p-10" data-aos="fade-up" data-aos-delay="150">
+                    <div class="flex items-start gap-4 mb-6">
+                        <img src="https://www.salesforce.com/content/dam/sfdc-docs/www/logos/logo-salesforce.svg" alt="Salesforce logo" width="48" height="48" class="w-12 h-12 shrink-0 object-contain">
+                        <div class="min-w-0">
+                            <h3 class="font-semibold text-2xl">Salesforce</h3>
+                            <p class="text-cyan-400 mt-2">Internship &middot; 3 months</p>
                         </div>
-                        <div class="flex-1">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 bg-gradient-to-br from-rose-500 to-orange-500 rounded-2xl flex items-center justify-center text-3xl">💼</div>
-                                <div>
-                                    <div class="font-semibold text-2xl">Salesforce CRM Customization</div>
-                                    <div class="text-cyan-400">Developer Intern</div>
-                                </div>
-                            </div>
-                            
-                            <p class="text-zinc-300">Designed end-to-end Salesforce solution with Apex classes, LWC components, and third-party API integrations. 
-                                • Implemented role-based access and custom workflows, improving team productivity by 25%</p>
-                            
+                    </div>
+                    <ol class="experience-timeline">
+                        <li>
+                            <h4 class="text-lg font-semibold">Developer Intern</h4>
+                            <p class="text-sm text-emerald-400 mt-1">May 2023 - Jul 2023 &middot; 3 months</p>
+                            <p class="text-zinc-200 font-medium mt-4">Salesforce CRM Customization</p>
+                            <p class="text-zinc-300 leading-relaxed mt-2">Designed end-to-end Salesforce solution with Apex classes, LWC components, and third-party API integrations. Implemented role-based access and custom workflows, improving team productivity by 25%.</p>
                             <div class="mt-6 flex flex-wrap gap-2">
                                 <span class="px-4 py-2 text-xs bg-white/10 rounded-3xl">Apex Classes</span>
                                 <span class="px-4 py-2 text-xs bg-white/10 rounded-3xl">LWC</span>
                                 <span class="px-4 py-2 text-xs bg-white/10 rounded-3xl">API Integrations</span>
                             </div>
-                        </div>
-                    </div>
+                            <a href="assets/Salesforce%20internship%20.pdf" onclick="openCertificateModal(this.href, 'Salesforce internship certificate'); return false;" class="inline-flex items-center gap-2 mt-6 px-6 py-3 border border-white/30 rounded-3xl hover:bg-white/5">
+                                <i class="fa-regular fa-file-pdf" aria-hidden="true"></i>
+                                View internship certificate (PDF)
+                            </a>
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
@@ -531,7 +690,7 @@
     <footer class="bg-black py-12 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6 text-center text-zinc-500 text-sm">
             <p>&copy; 2026 Rupesh Sai Teja Pitta. Crafted with passion and precision.</p>
-            <p class="mt-2">Last updated: July 2026</p>
+            <p class="mt-2">Last updated: <time id="last-updated">Pending deployment</time></p>
         </div>
     </footer>
 
@@ -543,8 +702,8 @@
                 <button onclick="closeResumeModal()" class="text-4xl leading-none hover:text-red-400">×</button>
             </div>
             <div class="p-8 max-h-[80vh] overflow-auto">
-                <img src="Resume_page-1.jpg" alt="Resume Page 1" class="w-full rounded-2xl shadow-2xl mb-8">
-                <img src="Resume_page-2.jpg" alt="Resume Page 2" class="w-full rounded-2xl shadow-2xl">
+                <img src="assets/Resume_page_1.jpg" alt="Resume Page 1" class="w-full rounded-2xl shadow-2xl mb-8">
+                <img src="assets/Resume_page_2.jpg" alt="Resume Page 2" class="w-full rounded-2xl shadow-2xl">
             </div>
         </div>
     </div>
@@ -559,6 +718,11 @@
             <div class="p-8 max-h-[80vh] overflow-auto">
                 <div id="modal-image" class="text-8xl text-center mb-6"></div>
                 <div id="modal-desc" class="text-zinc-300 leading-relaxed mb-8"></div>
+                <div id="modal-certificate" class="mb-8" hidden>
+                    <h4 class="font-semibold mb-3 text-cyan-400">Conference certificate</h4>
+                    <button type="button" onclick="openCertificateModal(currentProject.certificate, 'Conference certificate')" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-cyan-400/40 text-cyan-400 hover:bg-cyan-400/10">Click to view certificate</button>
+                    <a id="certificate-download" download class="inline-block mt-3 ml-4 text-cyan-400 underline">Download PDF</a>
+                </div>
                 <div class="mb-8">
                     <h4 class="font-semibold mb-3 text-cyan-400">Technologies Used</h4>
                     <div id="modal-tech" class="flex flex-wrap gap-2"></div>
@@ -577,8 +741,24 @@
         AOS.init({ once: true, duration: 800 });
 
         // Mobile menu
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            alert("Mobile navigation coming soon in full version!"); // Placeholder
+        const mobileMenuButton = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        function setMobileMenu(open, restoreFocus = false) {
+            mobileMenu.hidden = !open;
+            mobileMenuButton.setAttribute('aria-expanded', String(open));
+            mobileMenuButton.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+            mobileMenuButton.querySelector('i').className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+            if (restoreFocus) mobileMenuButton.focus();
+        }
+        mobileMenuButton.addEventListener('click', () => setMobileMenu(mobileMenu.hidden));
+        document.addEventListener('click', event => {
+            if (!mobileMenu.hidden && !event.target.closest('nav')) setMobileMenu(false);
+        });
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && !mobileMenu.hidden) setMobileMenu(false, true);
+        });
+        window.matchMedia('(min-width: 1280px)').addEventListener('change', event => {
+            if (event.matches) setMobileMenu(false);
         });
 
         // Resume modal
@@ -637,20 +817,45 @@
                 title: "Quality Unified Automation Insurance Lifecycle eXecution (QuailX)",
                 category: "web",
                 desc: "AI-powered codeless automation platform for testing workflows Security, Perfomance and Test Intelligent Suites.",
-                longDesc: "Working on QuailX Platform — an AI-powered, codeless automation platform that accelerates testing workflows across multiple domains. Features include intelligent test generation, cross-platform compatibility, and real-time analytics.",
-                tech: ["ReactJs","NodeJs", "Python", "Azure Open AI"],
+                longDesc: "QuailX is a ValueMomentum product, rebranded from the Intelligent Test Accelerator Platform (iTAP). I own three accelerators (tools) within the platform and have been developing many insurance-related accelerators using React, Node.js, Python with FastAPI, Azure OpenAI, and Azure AI Foundry.",
+                details: [
+                    {
+                        title: "1. Form Validation",
+                        description: "Architected to validate visual, text, OCR, text-style, and dynamic-data differences across insurance PDFs in all lines of business (LOBs), generated by tools such as SmartCOMM, OpenText Exstream, and GhostDraft."
+                    },
+                    {
+                        title: "2. Security Tools",
+                        description: "Developed for security-related use cases, with the following capabilities:",
+                        items: [
+                            ["PR Security Scan", "Scans pull requests for vulnerabilities in added or changed dependencies."],
+                            ["SCA Scanner", "Scans dependency manifests against OSV.dev for real CVEs and provides upgrade recommendations through software composition analysis (SCA)."],
+                            ["Vulnerability Assessment and Penetration Testing (VAPT)", "Performs a VAPT assessment from a URL, user input, file upload, or ALM/repository context, with governance-ready findings and runnable verification assets."],
+                            ["Test Generation", "Generates authentication, authorization, validation, OWASP, and API security tests from OpenAPI/Swagger APIs, based on the OWASP Top 10."],
+                            ["Gap Review", "Finds missing security coverage in stories, pull requests, and existing test cases."],
+                            ["Threat Model", "Generates STRIDE analysis and control recommendations from architecture input."],
+                            ["SAST Review", "Uses application source code to prioritize vulnerabilities, secrets, authentication issues, and injection risks."],
+                            ["Regression Recommendations", "Selects risk-based security regression tests based on code change impact."]
+                        ]
+                    },
+                    {
+                        title: "3. Coverage Gap Detection",
+                        description: "Identifies requirements or user stories with insufficient test coverage or no tests at all. Supports uploading a test requirements file or configuring Azure or Jira ALM integrations."
+                    }
+                ],
+                tech: ["React", "Node.js", "Python", "FastAPI", "Azure OpenAI", "Azure AI Foundry"],
                 link: "#",
-                image: "💼"
+                image: "assets/QuailX.jpeg", imageAlt: "QuailX — Quality Unified Automation for Insurance Lifecycle eXecution", imageFit: "contain"
             },
             {
                 id: 2,
                 title: "Phishing URL & Domain Detector",
+                certificate: "assets/Rupesh%20conference%20certificate.pdf",
                 category: "ai",
                 desc: "Machine Learning based deception detection system with real-time web interface.",
                 longDesc: "Developed a phishing detection platform using Machine Learning and modern web technologies. Includes URL analysis, domain reputation checking, and presented at conference.",
                 tech: ["Python", "ML", "HTML/CSS/JS"],
                 link: "https://github.com/rupesh-1021/phishing_detector",
-                image: "🔍"
+                image: "assets/Phishing%20Detector.png", imageAlt: "Phishing URL and Domain Detector project overview", imageFit: "contain", imageBackground: "bg-zinc-950"
             },
             {
                 id: 3,
@@ -660,7 +865,7 @@
                 longDesc: "Built a responsive and interactive personal portfolio website using modern web technologies. Features include project showcase, skill bars, contact form, and smooth scrolling navigation.",
                 tech: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
                 link: "#",
-                image: "🌐"
+                image: "assets/portfolio.png", imageAlt: "Rupesh portfolio website home page", imageFit: "contain", imageBackground: "bg-slate-900"
             }
         ];
 
@@ -671,8 +876,9 @@
             filteredProjects.forEach(project => {
                 const cardHTML = `
                     <div onclick="showProjectModal(${project.id})" class="project-card glass rounded-3xl overflow-hidden group cursor-pointer" data-category="${project.category}">
-                        <div class="h-56 bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-7xl">
-                            ${project.category === 'ai' ? '🤖' : '💻'}
+                        <div class="h-56 overflow-hidden ${project.imageBackground || (project.imageFit === 'contain' ? 'bg-white' : 'bg-zinc-800')}">
+                            <img src="${project.image}" alt="${project.imageAlt}" width="1200" height="675" loading="lazy" decoding="async"
+                                 class="w-full h-full ${project.imageFit === 'contain' ? 'object-contain p-3' : 'object-cover transition-transform duration-500 group-hover:scale-105'}">
                         </div>
                         <div class="p-8">
                             <div class="flex justify-between items-start">
@@ -710,6 +916,7 @@
 
         // Navigation helper
         function navigateTo(section) {
+            setMobileMenu(false);
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${section}`) {
@@ -750,8 +957,46 @@
             if (!currentProject) return;
 
             document.getElementById('modal-title').textContent = currentProject.title;
-            document.getElementById('modal-desc').innerHTML = currentProject.longDesc.replace(/\n/g, '<br>');
-            document.getElementById('modal-image').innerHTML = currentProject.image || (currentProject.category === 'ai' ? '🤖' : '💻');
+            const description = document.getElementById('modal-desc');
+            const overview = document.createElement('p');
+            overview.textContent = currentProject.longDesc;
+            description.replaceChildren(overview);
+            (currentProject.details || []).forEach(detail => {
+                const section = document.createElement('div');
+                section.className = 'mt-6';
+                const heading = document.createElement('h4');
+                heading.className = 'text-xl font-semibold text-cyan-400 mb-3';
+                heading.textContent = detail.title;
+                const paragraph = document.createElement('p');
+                paragraph.textContent = detail.description;
+                section.append(heading, paragraph);
+                if (detail.items) {
+                    const list = document.createElement('ul');
+                    list.className = 'list-disc pl-5 mt-4 space-y-3';
+                    detail.items.forEach(([label, text]) => {
+                        const item = document.createElement('li');
+                        const name = document.createElement('strong');
+                        name.className = 'text-zinc-100';
+                        name.textContent = `${label}: `;
+                        item.append(name, document.createTextNode(text));
+                        list.append(item);
+                    });
+                    section.append(list);
+                }
+                description.append(section);
+            });
+            const projectImage = document.createElement('img');
+            projectImage.src = currentProject.image;
+            projectImage.alt = currentProject.imageAlt;
+            projectImage.className = currentProject.imageFit === 'contain' ? 'w-full h-auto rounded-2xl' : 'w-full aspect-video object-cover rounded-2xl';
+            document.getElementById('modal-image').replaceChildren(projectImage);
+            const certificate = document.getElementById('modal-certificate');
+            certificate.hidden = !currentProject.certificate;
+            if (currentProject.certificate) {
+                document.getElementById('certificate-download').href = currentProject.certificate;
+            } else {
+                document.getElementById('certificate-download').removeAttribute('href');
+            }
 
             const techContainer = document.getElementById('modal-tech');
             techContainer.innerHTML = currentProject.tech.map(t => 
@@ -777,6 +1022,27 @@
             modal.classList.remove('flex');
         }
 
+        function openCertificateModal(url, title) {
+            if (!url) return;
+            const dialog = document.getElementById('certificate-dialog');
+            document.getElementById('certificate-dialog-title').textContent = title;
+            const isImage = /\.(?:jpe?g|png|webp)(?:[?#]|$)/i.test(url);
+            const frame = document.getElementById('certificate-frame');
+            const image = document.getElementById('certificate-image');
+            frame.hidden = isImage;
+            document.getElementById('certificate-image-container').hidden = !isImage;
+            frame.removeAttribute('src');
+            image.removeAttribute('src');
+            if (isImage) {
+                image.src = url;
+                image.alt = title;
+            } else {
+                frame.src = url + '#toolbar=0&navpanes=0&view=FitH';
+            }
+            document.getElementById('certificate-open').href = url;
+            dialog.showModal();
+        }
+
         // Initialize everything
         window.onload = function() {
             createParticles();
@@ -786,6 +1052,7 @@
             // Keyboard escape for modals
             document.addEventListener('keydown', function(e) {
                 if (e.key === "Escape") {
+                    if (document.getElementById('certificate-dialog').open) return;
                     const resumeModal = document.getElementById('resume-modal');
                     const projectModal = document.getElementById('project-modal');
                     if (!resumeModal.classList.contains('hidden')) closeResumeModal();
@@ -813,6 +1080,30 @@
                 });
             });
         };
+    </script>
+    <dialog id="certificate-dialog" aria-labelledby="certificate-dialog-title" class="p-0 m-auto w-[95vw] max-w-6xl h-[90vh] max-h-[90vh] rounded-2xl bg-zinc-900 text-zinc-200 border border-white/20 backdrop:bg-black/80">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between gap-4 p-4 border-b border-white/10">
+                <h2 id="certificate-dialog-title" class="text-xl font-semibold">Certificate</h2>
+                <button type="button" onclick="document.getElementById('certificate-dialog').close()" aria-label="Close certificate" autofocus class="text-3xl px-3 hover:text-cyan-400">&times;</button>
+            </div>
+            <iframe id="certificate-frame" title="Certificate PDF viewer" class="w-full flex-1 min-h-0 border-0 bg-white"></iframe>
+            <div id="certificate-image-container" hidden class="flex-1 min-h-0 overflow-auto p-3">
+                <img id="certificate-image" alt="" class="w-full h-full object-contain">
+            </div>
+            <div class="p-3 text-sm text-zinc-400">You can also <a id="certificate-open" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">open the certificate in a new tab</a>.</div>
+        </div>
+    </dialog>
+    <script>
+        const certificateDialog = document.getElementById('certificate-dialog');
+        certificateDialog.addEventListener('close', () => {
+            document.getElementById('certificate-frame').removeAttribute('src');
+            document.getElementById('certificate-image').removeAttribute('src');
+        });
+        certificateDialog.addEventListener('click', event => {
+            const bounds = certificateDialog.getBoundingClientRect();
+            if (event.target === certificateDialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom)) certificateDialog.close();
+        });
     </script>
 </body>
 </html>
